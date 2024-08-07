@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap');
 * {
   padding: 0;
   margin: 0;
@@ -10,7 +11,8 @@ html {
 
 body {
   min-width: 100vh;
-  font-family: sans-serif;
+  font-family: 'IBM Plex Mono', sans-serif;
+  background-color: aliceblue;
 }
 
 h1 {
@@ -18,13 +20,15 @@ h1 {
   margin-block: 1rem;
 }
 .container {
-  max-width: 40rem;
+  max-width: 45rem;
   margin: 2rem auto;
   display: flex;
   flex-flow: column;
   /* background-color: red; */
   border: #555 solid 5px;
-  transform: scale(0.94);
+  transform: scale(0.85);
+  background-color: #fff;
+  box-shadow: 2px 1px 8px 4px #55555569;
 }
 
 .container > img {
