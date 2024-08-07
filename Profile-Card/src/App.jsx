@@ -1,5 +1,33 @@
 import './app.css';
 
+const skills = [
+  {
+    skill: 'HTML+CSS',
+    level: 'advanced',
+    color: '#2662EA',
+  },
+  {
+    skill: 'JavaScript',
+    level: 'advanced',
+    color: '#EFD81D',
+  },
+  {
+    skill: 'Web Design',
+    level: 'intermediate',
+    color: '#C3DCAF',
+  },
+  {
+    skill: 'Git and GitHub',
+    level: 'intermediate',
+    color: '#E84F33',
+  },
+  {
+    skill: 'React',
+    level: 'beginner',
+    color: '#60DAFB',
+  },
+];
+
 function App() {
   return (
     <main className="container">
@@ -27,21 +55,28 @@ function About() {
 }
 function SkillSet() {
   return (
-    <div className="skill-set">
-      <Skill name="HTML+CSS" emoji="💪" bgColor="blue" />
-      <Skill name="JavaScript" emoji="💪" bgColor="yellow" />
-      <Skill name="Web Design" emoji="👍" bgColor="lightgreen" />
-      <Skill name="Git and GitHub" emoji="👍" bgColor="#E4462C" />
-      <Skill name="React" emoji="👶" bgColor="#53D4F6" />
-    </div>
+    <ul className="skill-set">
+      {skills.map((skill, i) => (
+        <Skill
+          key={i}
+          color={skill.color}
+          name={skill.skill}
+          level={skill.level}
+        />
+      ))}
+    </ul>
   );
 }
 
-function Skill(props) {
+function Skill({ color, level, name }) {
+  let emoji = '';
+  if (level === 'beginner') emoji = '👶';
+  else if (level === 'intermediate') emoji = '👍';
+  else emoji = '💪';
   return (
-    <div className="skill" style={{ backgroundColor: props.bgColor }}>
-      {props.name}
-      <span>{props.emoji}</span>
+    <div className="skill" style={{ backgroundColor: color }}>
+      {name}
+      <span>{emoji}</span>
     </div>
   );
 }
