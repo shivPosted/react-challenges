@@ -1,35 +1,122 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+
+const daysOfWeek = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+const monthsOfYear = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [step, setStep] = useState(1);
+  const [count, setCount] = useState(0);
+  function handleStpePlus() {
+    setStep(cur => cur + 1);
+  }
+  function handleStpeMinus() {
+    setStep(cur => {
+      if (cur === 1) return cur;
+      return cur - 1;
+    });
+  }
+  function handleCountPlus() {
+    setCount(cur => cur + step);
+  }
+  function handleCountMinus() {
+    setCount(cur => cur - step);
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div
+      className="container"
+      style={{
+        maxWidth: '40rem',
+        margin: '12rem auto 0 auto',
+        textAlign: 'center',
+        scale: '1.5',
+      }}
+    >
+      <Step
+        step={step}
+        handleStpeMinus={handleStpeMinus}
+        handleStpePlus={handleStpePlus}
+      />
+      <Counter
+        count={count}
+        handleCountMinus={handleCountMinus}
+        handleCountPlus={handleCountPlus}
+      />
+
+      <DateComponent step={step} count={count} />
+    </div>
+  );
 }
 
-export default App
+function Step({ step, handleStpePlus, handleStpeMinus }) {
+  return (
+    <div
+      className="stepper"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <button onClick={handleStpeMinus}>-</button>
+      <p style={{ marginInline: '0.6rem' }}> Step: {step} </p>
+      <button onClick={handleStpePlus}>+</button>
+    </div>
+  );
+}
+
+function Counter({ count, handleCountPlus, handleCountMinus }) {
+  return (
+    <div
+      className="counter"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <button onClick={handleCountMinus}>-</button>
+      <p style={{ marginInline: '0.6rem' }}>Count: {count}</p>
+      <button onClick={handleCountPlus}>+</button>
+    </div>
+  );
+}
+
+function DateComponent({ count }) {
+  const ms = count * 24 * 60 * 60 * 1000;
+  const timestamp = Date.now();
+  const date = new Date(timestamp + ms);
+  const day = daysOfWeek[date.getDay()];
+  const month = monthsOfYear[date.getMonth()];
+  const dateString = `${day} ${date.getDate()}  ${month} ${date.getFullYear()}`;
+  return (
+    <p>
+      {count === 0
+        ? `Toaday is ${dateString}`
+        : count > 0
+        ? `${count} days from today will be ${dateString}`
+        : `${count} day ago would have been ${dateString}`}
+    </p>
+  );
+}
+export default App;
