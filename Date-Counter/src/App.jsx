@@ -1,28 +1,28 @@
 import { useState } from 'react';
 
-const daysOfWeek = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
-const monthsOfYear = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+// const daysOfWeek = [
+//   'Sunday',
+//   'Monday',
+//   'Tuesday',
+//   'Wednesday',
+//   'Thursday',
+//   'Friday',
+//   'Saturday',
+// ];
+// const monthsOfYear = [
+//   'January',
+//   'February',
+//   'March',
+//   'April',
+//   'May',
+//   'June',
+//   'July',
+//   'August',
+//   'September',
+//   'October',
+//   'November',
+//   'December',
+// ];
 
 function App() {
   const [step, setStep] = useState(1);
@@ -106,9 +106,10 @@ function DateComponent({ count }) {
   const ms = count * 24 * 60 * 60 * 1000;
   const timestamp = Date.now();
   const date = new Date(timestamp + ms);
-  const day = daysOfWeek[date.getDay()];
-  const month = monthsOfYear[date.getMonth()];
-  const dateString = `${day} ${date.getDate()}  ${month} ${date.getFullYear()}`;
+  // const day = daysOfWeek[date.getDay()];
+  // const month = monthsOfYear[date.getMonth()];
+  // const dateString = `${day} ${date.getDate()}  ${month} ${date.getFullYear()}`;
+  const dateString = date.toDateString();
   return (
     <p>
       {count === 0

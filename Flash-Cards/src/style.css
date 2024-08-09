@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 62.5%;
+  background-color: #eee;
+  font-family: sans-serif;
+}
+.cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* gap: 3.2rem; */
+  max-width: 90%;
+  margin: 8rem auto;
+  justify-items: center;
+  row-gap: 2rem;
+}
+
+.card {
+  border: 1px solid #999;
+  border-radius: 9px;
+  font-size: 1rem;
+  width: 25rem;
+  padding: 6rem 1rem;
+  text-align: center;
+  background-color: aliceblue;
+  cursor: pointer;
+  /* transition: all 0.5s; */
+}
+
+.card.show {
+  background-color: orangered;
+  font-weight: 700;
+  font-size: 1.6rem;
+  /* line-height: ; */
+  border: 1px solid #fff;
+  color: #fff;
+}
