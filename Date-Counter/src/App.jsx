@@ -27,21 +27,35 @@ import { useState } from 'react';
 function App() {
   const [step, setStep] = useState(1);
   const [count, setCount] = useState(0);
-  function handleStpePlus() {
-    setStep(cur => cur + 1);
+  // function handleStpePlus() {
+  //   setStep(cur => cur + 1);
+  // }
+  // function handleStpeMinus() {
+  //   setStep(cur => {
+  //     if (cur === 1) return cur;
+  //     return cur - 1;
+  //   });
+  // }
+
+  function handleStepChange(val) {
+    setStep(val);
   }
-  function handleStpeMinus() {
-    setStep(cur => {
-      if (cur === 1) return cur;
-      return cur - 1;
-    });
+
+  function handleCountChange(val) {
+    setCount(val === 0 ? '' : val);
   }
+
   function handleCountPlus() {
     setCount(cur => cur + step);
   }
   function handleCountMinus() {
     setCount(cur => cur - step);
   }
+  function handleReset() {
+    setStep(1);
+    setCount(0);
+  }
+
   return (
     <div
       className="container"
@@ -52,23 +66,21 @@ function App() {
         scale: '1.5',
       }}
     >
-      <Step
-        step={step}
-        handleStpeMinus={handleStpeMinus}
-        handleStpePlus={handleStpePlus}
-      />
+      <Step step={step} handleStepChange={handleStepChange} />
       <Counter
         count={count}
         handleCountMinus={handleCountMinus}
         handleCountPlus={handleCountPlus}
+        handleCountChange={handleCountChange}
       />
 
       <DateComponent step={step} count={count} />
+      {count !== 0 && <button onClick={handleReset}>Reset</button>}
     </div>
   );
 }
 
-function Step({ step, handleStpePlus, handleStpeMinus }) {
+function Step({ step, handleStepChange }) {
   return (
     <div
       className="stepper"
@@ -78,14 +90,28 @@ function Step({ step, handleStpePlus, handleStpeMinus }) {
         justifyContent: 'center',
       }}
     >
-      <button onClick={handleStpeMinus}>-</button>
-      <p style={{ marginInline: '0.6rem' }}> Step: {step} </p>
-      <button onClick={handleStpePlus}>+</button>
+      {/* <button onClick={handleStpeMinus}>-</button> */}
+      <input
+        type="range"
+        value={step}
+        min={1}
+        max={10}
+        onChange={e => {
+          handleStepChange(Number(e.target.value));
+        }}
+      />
+      <p style={{ marginInline: '0.6rem' }}>Step: {step} </p>
+      {/* <button onClick={handleStpePlus}>+</button> */}
     </div>
   );
 }
 
-function Counter({ count, handleCountPlus, handleCountMinus }) {
+function Counter({
+  count,
+  handleCountPlus,
+  handleCountMinus,
+  handleCountChange,
+}) {
   return (
     <div
       className="counter"
@@ -96,7 +122,13 @@ function Counter({ count, handleCountPlus, handleCountMinus }) {
       }}
     >
       <button onClick={handleCountMinus}>-</button>
-      <p style={{ marginInline: '0.6rem' }}>Count: {count}</p>
+      <input
+        type="number"
+        value={count}
+        onChange={e => handleCountChange(Number(e.target.value))}
+        placeholder="type days..."
+        style={{ marginInline: '0.6rem' }}
+      />
       <button onClick={handleCountPlus}>+</button>
     </div>
   );
@@ -112,7 +144,7 @@ function DateComponent({ count }) {
   const dateString = date.toDateString();
   return (
     <p>
-      {count === 0
+      {count === 0 || count === ''
         ? `Toaday is ${dateString}`
         : count > 0
         ? `${count} days from today will be ${dateString}`
