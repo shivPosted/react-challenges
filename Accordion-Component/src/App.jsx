@@ -15,24 +15,49 @@ const faqs = [
   },
 ];
 function App() {
+  const [openedID, setOpenedID] = useState(null);
+
+  function handleToggle(id) {
+    // if (openedID === id) {
+    //   setOpenedID(null);
+    //   return;
+    // }
+    setOpenedID(cur => (cur === id ? null : id));
+  }
   return (
     <ul className="container">
       {faqs.map((item, i) => (
-        <Question key={i} QnA={{ ...item, key: (i + 1).toString() }} />
+        <Question
+          key={i}
+          QnA={{ ...item, key: i + 1 }}
+          handleToggle={handleToggle}
+          openedID={openedID}
+        />
       ))}
+      <Question
+        key={65}
+        QnA={{
+          key: 65,
+          title: 'What is your name?',
+          text: 'My name is Shiv Pratap Singh. bla la bla la blalala blala',
+        }}
+        handleToggle={handleToggle}
+        openedID={openedID}
+      />
     </ul>
   );
 }
 
-function Question({ QnA }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  function handleClick() {
-    setIsOpen(cur => !cur);
-  }
+function Question({ QnA, handleToggle, openedID }) {
+  const isOpen = openedID === QnA.key;
   return (
-    <li className={`qna ${isOpen ? 'open' : ''}`} onClick={handleClick}>
-      <span className="qnum">{QnA.key.padStart(2, 0)}</span>
+    <li
+      className={`qna ${isOpen ? 'open' : ''}`}
+      onClick={() => {
+        handleToggle(QnA.key);
+      }}
+    >
+      <span className="qnum">{QnA.key.toString().padStart(2, 0)}</span>
       <span className="ques">{QnA.title}</span>
       <span>{isOpen ? '-' : '+'}</span>
       {isOpen ? <span className="answer">{QnA.text}</span> : ''}
