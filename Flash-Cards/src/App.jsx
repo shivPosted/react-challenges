@@ -40,20 +40,16 @@ function App() {
 
 function Cards() {
   const [shownID, setShownID] = useState(null);
-
+  function handleClick(id) {
+    setShownID(id === shownID ? null : id);
+  }
   return (
     <ul className="cards">
       {questions.map(card => (
         <li
           className={`card ${card.id === shownID ? 'show' : ''}`}
           key={card.id}
-          onClick={() => {
-            if (card.id === shownID) {
-              setShownID(null);
-              return;
-            }
-            setShownID(card.id);
-          }}
+          onClick={() => handleClick(card.id)}
         >
           {card.id === shownID ? card.answer : card.question}
         </li>
