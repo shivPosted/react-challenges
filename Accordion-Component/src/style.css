@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: sans-serif;
+}
+.container {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  max-width: 60rem;
+  margin: 0 auto;
+  margin-top: 12rem;
+  row-gap: 2rem;
+}
+
+.qna {
+  font-size: 2rem;
+  display: grid;
+  color: #333;
+  align-items: center;
+  grid-template-columns: 10fr 80fr 10fr;
+  background-color: #fff;
+  padding: 1.6rem;
+  row-gap: 2.4rem;
+  font-weight: 600;
+  /* border: 1px solid #777; */
+  box-shadow: 0 1px 8px 2px #777;
+  cursor: pointer;
+}
+
+.qna > .answer {
+  grid-column: 2 / 3;
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1.4;
+}
+
+.open {
+  border-top: 4px solid #087f5b;
+}
+
+.open .qnum,
+.open .ques {
+  color: #087f5b;
+}
+
+/* .qna.active {
+  outline: 4px solid yellowgreen;
+  /* box-shadow: none; 
+} */
+
+.qna span:nth-child(3) {
+  margin-left: auto;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.qnum {
+  color: #aaa;
+}
