@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main {
+  max-width: 40rem;
+  margin: 4rem auto;
+  /* height: 40rem; */
+  /* border-radius: 9px; */
+  /* overflow: clip; */
+  position: relative;
+  background-position: center;
+}
+.main img {
+  width: 100%;
+  height: 30rem;
+  border-radius: 9px;
+}
+button {
+  position: absolute;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.larr,
+.rarr {
+  top: 50%;
+}
+
+.larr {
+  left: -10rem;
+}
+.rarr {
+  right: -10rem;
+}
