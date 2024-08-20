@@ -16,6 +16,8 @@
 .main img {
   width: 100%;
   height: 30rem;
+
+  box-shadow: 0 4px 16px 8px #00000046;
   border-radius: 9px;
 }
 button {
