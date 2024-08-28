@@ -34,7 +34,6 @@ function App() {
 }
 
 const styleContainer = {
-  backgroundColor: '#F6F6F6',
   padding: '6px 12px',
   // display: 'flex',
   // gap: '12px',
@@ -44,13 +43,14 @@ const styleContainer = {
 const containerBox = {
   border: '1px solid #777',
   borderRadius: '9px',
+  backgroundColor: '#F6F6F6',
 };
 
 function TextExpander({
   collapseInWords = 10,
   expandButtonText = 'show text',
   collapseButtonText = 'hide text',
-  buttonColor = '#444',
+  buttonColor = 'blue',
   children,
   fontSize = '16px',
   expanded = false,
@@ -58,7 +58,7 @@ function TextExpander({
 }) {
   const [isOpen, setIsOpen] = useState(expanded);
   const collapsedText =
-    children.split(' ').slice(0, collapseInWords).join(' ') + '....';
+    children.split(' ').slice(0, collapseInWords).join(' ') + '...';
   return (
     <div
       className="container"
