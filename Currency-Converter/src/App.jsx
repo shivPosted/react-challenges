@@ -4,9 +4,10 @@ const host = 'api.frankfurter.app';
 
 function App() {
   const [input, setInput] = useState('');
-  const [convertFrom, setConvertFrom] = useState('USD');
+  const [convertFrom, setConvertFrom] = useState('INR');
   const [convertTo, setConvertTo] = useState('USD');
   const [output, setOutput] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   console.log(input, convertFrom, convertTo);
 
@@ -14,12 +15,10 @@ function App() {
     const controller = new AbortController();
 
     async function fetchConversions() {
-      if (convertTo === convertFrom || input === 0) {
-        setOutput(input);
-      }
       try {
+        setIsLoading(true);
         const res = await fetch(
-          `https://${host}/latest?amount=${input}&from=${convertFrom}&to=${convertTo}`,
+          `https://${host}/latest?amount=${+input}&from=${convertFrom}&to=${convertTo}`,
           { signal: controller.signal }
         );
         console.log(res);
@@ -34,9 +33,15 @@ function App() {
         setOutput(rate.toFixed(2));
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     }
 
+    if (convertTo === convertFrom) {
+      setOutput('They are the same 😒');
+    }
+    if (!input) setOutput('Try converting 🤗🤗');
     fetchConversions();
 
     return () => {
@@ -66,7 +71,7 @@ function App() {
         <option value="CAD">CAD</option>
         <option value="INR">INR</option>
       </select>
-      <p>{output}</p>
+      <p>{!isLoading ? output : 'Loading...'}</p>
     </div>
   );
 }
