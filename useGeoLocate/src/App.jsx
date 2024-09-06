@@ -1,38 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import usePosition from "./usePosition";
 
 function App() {
-  const [position, setPosition] = useState({});
   const [count, setCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const { position, isLoading, error, handlePosition } = usePosition();
 
-  function handlePosition() {
-    setIsLoading(true);
-    const nav = navigator.geolocation;
-    if (!nav) alert("Your browser doesn't support geolocation");
+  useEffect(() => {
+    if (position.lat || position.long) setCount((cur) => cur + 1);
+  }, [position]);
 
-    nav.getCurrentPosition(
-      (pos) => {
-        console.log(pos);
-        const { latitude: lat, longitude: long } = pos.coords;
-        setPosition(() => {
-          return {
-            lat,
-            long,
-          };
-        });
-        setCount((cur) => cur + 1);
-        setIsLoading(false);
-      },
-      () => {
-        alert("You did not allowed to access the permission");
-      },
-    );
-  }
   return (
     <div className="main">
       <button onClick={handlePosition}>Get Location</button>
       <p>
-        {isLoading ? "Loading..." : "Your current position in lat/long is: "}
+        {error
+          ? error
+          : isLoading
+            ? "Loading..."
+            : "Your current position in lat/long is: "}
+        {}
         <a
           href={`https://www.openstreetmap.org/#map=19/${position.lat}/${position.long}`}
         >
