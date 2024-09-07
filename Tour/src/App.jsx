@@ -91,6 +91,7 @@ function TourCard({ data, handleRemove }) {
         </p>
         <button onClick={() => handleRemove(data.id)}>Not Interested</button>
       </div>
+      <span className="price-tag">{`$ ${data.price}`}</span>
     </li>
   );
 }
