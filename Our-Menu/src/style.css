@@ -19,6 +19,63 @@ body {
   width: 100%;
 }
 
+ul {
+  max-width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3.2rem;
+  list-style: none;
+}
+
+li {
+  max-width: 45rem;
+}
+
+.product-description {
+  display: flex;
+  gap: 1.2rem;
+  flex-direction: column;
+  padding: 2.4rem 1.2rem;
+}
+
+.product-description p {
+  font-size: 1.6rem;
+  line-height: 2;
+  color: #666;
+}
+
+.product-highlights {
+  display: flex;
+  gap: 3.2rem;
+  align-items: center;
+  color: #444;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  /* text-transform: uppercase; */
+}
+
+.product-highlights p {
+  margin-left: auto;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0 0.6rem;
+  border-radius: 4px;
+  max-width: 30%;
+}
+
+figure {
+  background-size: cover;
+}
+
+img {
+  width: 100%;
+  height: 25rem;
+  display: block;
+  object-fit: cover;
+  border-radius: 6px 6px 0 0;
+}
+
 header,
 nav {
   margin: 3.2rem auto;

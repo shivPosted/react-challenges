@@ -73,4 +73,5 @@ const menu = [
   },
 ];
 
-export { menu };
+const tabNames = ["all", "breakfast", "lunch", "shakes"];
+export { menu, tabNames };
