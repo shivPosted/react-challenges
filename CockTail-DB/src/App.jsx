@@ -1,10 +1,19 @@
+import { useState } from "react";
 import "./style.css";
+import { useRef } from "react";
+import { useEffect } from "react";
 function App() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   return (
     <>
       <Header />
-      <Main>
-        <CockTailList />
+      <Main setData={setData} setLoading={setLoading}>
+        {loading ? (
+          <p className="loading">Loading...</p>
+        ) : (
+          <CockTailList data={data} />
+        )}
       </Main>
     </>
   );
@@ -40,19 +49,53 @@ function Nav() {
   );
 }
 
-function Main({ children }) {
+function Main({ setData, children, setLoading }) {
+  const [query, setQuery] = useState("");
+
+  const input = useRef(null);
+
+  useEffect(() => {
+    input.current.focus();
+  }, []);
+
+  async function fetchData() {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`,
+      );
+      if (!res.ok) throw new Error(`Error: ${res.statusText}, ${res.status}`);
+
+      const { drinks: data } = await res.json();
+      setData(data);
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetchData();
+  }
   return (
     <main>
-      <form action="none">
-        <input type="text" />
+      <form action="none" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          ref={input}
+        />
         <button>Search</button>
-        {children}
       </form>
+      {children}
     </main>
   );
 }
 
 function CockTailList({ data }) {
+  console.log(data);
   return (
     <ul className="cocktail-list">
       {data.map((item) => (
@@ -67,7 +110,7 @@ function DrinkCard({ data }) {
     idDrink: id,
     strDrink: name,
     // strCategory: category,
-    strAlcohalic: alcohalic,
+    strAlcoholic: alcohalic,
     strGlass: glass,
     strDrinkThumb: img,
   } = data;
@@ -81,6 +124,7 @@ function DrinkCard({ data }) {
         <h2>{name}</h2>
         <p className="glass">{glass}</p>
         <div className="alcohalic">{alcohalic}</div>
+        <button className="details-btn">Details</button>
       </div>
     </li>
   );
