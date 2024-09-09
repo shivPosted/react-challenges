@@ -5,16 +5,21 @@ import { useEffect } from "react";
 function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [details, setDetails] = useState(null);
   return (
     <>
       <Header />
-      <Main setData={setData} setLoading={setLoading}>
-        {loading ? (
-          <p className="loading">Loading...</p>
-        ) : (
-          <CockTailList data={data} />
-        )}
-      </Main>
+      {details ? (
+        <DetailsDrink details={details} />
+      ) : (
+        <Main setData={setData} setLoading={setLoading}>
+          {loading ? (
+            <p className="loading">Loading...</p>
+          ) : (
+            <CockTailList data={data} />
+          )}
+        </Main>
+      )}
     </>
   );
 }
@@ -68,6 +73,7 @@ function Main({ setData, children, setLoading }) {
 
       const { drinks: data } = await res.json();
       setData(data);
+      console.log(data);
     } catch (err) {
       console.log(err.message);
     } finally {
@@ -95,10 +101,13 @@ function Main({ setData, children, setLoading }) {
 }
 
 function CockTailList({ data }) {
-  console.log(data);
-  return (
+  const drinksData = data ? data : "Drink Not Found";
+
+  return !data ? (
+    <p className="message">{drinksData}</p>
+  ) : (
     <ul className="cocktail-list">
-      {data.map((item) => (
+      {drinksData.map((item) => (
         <DrinkCard key={item.idDrink} data={item} />
       ))}
     </ul>
@@ -130,4 +139,7 @@ function DrinkCard({ data }) {
   );
 }
 
+function DetailsDrink() {
+  return <div className="drink-details-section"></div>;
+}
 export default App;
