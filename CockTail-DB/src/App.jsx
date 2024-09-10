@@ -6,17 +6,28 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [details, setDetails] = useState(null);
+
+  function handleShowDetails(id) {
+    const currObj = data.find((item) => item.idDrink === id);
+
+    setDetails(currObj);
+  }
+
+  function handleBackClick() {
+    setDetails(null);
+  }
+
   return (
     <>
       <Header />
       {details ? (
-        <DetailsDrink details={details} />
+        <DetailsDrink details={details} handleBackClick={handleBackClick} />
       ) : (
         <Main setData={setData} setLoading={setLoading}>
           {loading ? (
             <p className="loading">Loading...</p>
           ) : (
-            <CockTailList data={data} />
+            <CockTailList data={data} handleShowDetails={handleShowDetails} />
           )}
         </Main>
       )}
@@ -63,6 +74,10 @@ function Main({ setData, children, setLoading }) {
     input.current.focus();
   }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   async function fetchData() {
     setLoading(true);
     try {
@@ -100,7 +115,7 @@ function Main({ setData, children, setLoading }) {
   );
 }
 
-function CockTailList({ data }) {
+function CockTailList({ data, handleShowDetails }) {
   const drinksData = data ? data : "Drink Not Found";
 
   return !data ? (
@@ -108,13 +123,17 @@ function CockTailList({ data }) {
   ) : (
     <ul className="cocktail-list">
       {drinksData.map((item) => (
-        <DrinkCard key={item.idDrink} data={item} />
+        <DrinkCard
+          key={item.idDrink}
+          data={item}
+          handleShowDetails={handleShowDetails}
+        />
       ))}
     </ul>
   );
 }
 
-function DrinkCard({ data }) {
+function DrinkCard({ data, handleShowDetails }) {
   const {
     idDrink: id,
     strDrink: name,
@@ -127,19 +146,59 @@ function DrinkCard({ data }) {
   return (
     <li>
       <figure>
-        <img src={img} alt={`${name}-image`} />
+        <img className="card-img" src={img} alt={`${name}-image`} />
       </figure>
       <div className="drink-desc">
         <h2>{name}</h2>
         <p className="glass">{glass}</p>
         <div className="alcohalic">{alcohalic}</div>
-        <button className="details-btn">Details</button>
+        <button className="details-btn" onClick={() => handleShowDetails(id)}>
+          Details
+        </button>
       </div>
     </li>
   );
 }
 
-function DetailsDrink() {
-  return <div className="drink-details-section"></div>;
+function DetailsDrink({ details, handleBackClick }) {
+  const {
+    strDrink: name,
+    strGlass: glass,
+    strDrinkThumb: img,
+    strAlcoholic: alcholic,
+    strCategory: category,
+    strInstructions: instructions,
+  } = details;
+
+  const ingredients = Object.entries(details)
+    .filter((entry) => entry[0].includes("strIngredient") && entry[1])
+    .map((entry) => entry[1])
+    .join(", ");
+  console.log(ingredients);
+  return (
+    <div className="drink-details-section">
+      <figure>
+        <img src={img} alt={`${name}-image`} />
+      </figure>
+
+      <div className="drink-details">
+        <div className="drink-details-categ">Name:</div>
+        <p>{name}</p>
+        <div className="drink-details-categ">Category:</div>
+        <p>{category}</p>
+        <div className="drink-details-categ">Info:</div>
+        <p>{alcholic}</p>
+        <div className="drink-details-categ">Glass:</div>
+        <p>{glass}</p>
+        <div className="drink-details-categ">Ingredients:</div>
+        <p>{ingredients}</p>
+        <div className="drink-details-categ">Instructions:</div>
+        <p>{instructions}</p>
+      </div>
+      <button onClick={handleBackClick} id="back-btn">
+        &larr;
+      </button>
+    </div>
+  );
 }
 export default App;
