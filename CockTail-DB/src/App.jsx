@@ -6,7 +6,7 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [details, setDetails] = useState(null);
-
+  const [destination, setDestination] = useState("home");
   function handleShowDetails(id) {
     const currObj = data.find((item) => item.idDrink === id);
 
@@ -19,46 +19,82 @@ function App() {
 
   return (
     <>
-      <Header />
-      {details ? (
-        <DetailsDrink details={details} handleBackClick={handleBackClick} />
+      <Header>
+        <Nav setDestination={setDestination} destination={destination} />
+      </Header>
+      {destination === "home" ? (
+        details ? (
+          <DetailsDrink details={details} handleBackClick={handleBackClick} />
+        ) : (
+          <Main setData={setData} setLoading={setLoading}>
+            {loading ? (
+              <p className="loading">Loading...</p>
+            ) : (
+              <CockTailList data={data} handleShowDetails={handleShowDetails} />
+            )}
+          </Main>
+        )
       ) : (
-        <Main setData={setData} setLoading={setLoading}>
-          {loading ? (
-            <p className="loading">Loading...</p>
-          ) : (
-            <CockTailList data={data} handleShowDetails={handleShowDetails} />
-          )}
-        </Main>
+        ""
+      )}
+      {destination === "about" ? (
+        <div className="about-section">
+          <p className="about-para">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit quis
+            neque, incidunt maiores illo commodi magni optio necessitatibus
+            nihil earum ea repudiandae totam! At tenetur delectus quae modi,
+            mollitia voluptatum.
+          </p>
+        </div>
+      ) : (
+        ""
+      )}
+      {destination === "newsletter" ? (
+        <div className="newsletter-section">
+          <p className="newsletter-para">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magni
+            dolor quis sapiente nostrum atque, earum facilis distinctio vel hic
+            aperiam ut, in pariatur rerum blanditiis ipsa sit minus veritatis
+            magnam?
+          </p>
+        </div>
+      ) : (
+        ""
       )}
     </>
   );
 }
 
-function Header() {
+function Header({ children }) {
   return (
     <header>
       <h1>CockTailDB</h1>
-      <Nav />
+      {children}
     </header>
   );
 }
 
-function Nav() {
+function Nav({ setDestination, destination }) {
   return (
     <nav>
       <ul className="navigation-link">
-        <li>
-          {" "}
-          <a href="">Home</a>
+        <li
+          onClick={() => setDestination("home")}
+          className={`navigation-links ${destination === "home" ? "active" : ""}`}
+        >
+          Home
         </li>
-        <li>
-          {" "}
-          <a href="">About</a>
+        <li
+          onClick={() => setDestination("about")}
+          className={`navigation-links ${destination === "about" ? "active" : ""}`}
+        >
+          About
         </li>
-        <li>
-          {" "}
-          <a href="">NewsLetter</a>
+        <li
+          onClick={() => setDestination("newsletter")}
+          className={`navigation-links ${destination === "newsletter" ? "active" : ""}`}
+        >
+          Newsletter
         </li>
       </ul>
     </nav>

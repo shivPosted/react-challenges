@@ -24,15 +24,6 @@ h1 {
   color: #10b981;
 }
 
-a {
-  text-decoration: none;
-  color: #444;
-}
-
-a:hover {
-  color: #10b981;
-}
-
 main {
   width: 100%;
   padding-block: 3.2rem;
@@ -176,4 +167,23 @@ figure > .card-img {
 
 #back-btn:hover {
   background-color: #6ee7b7;
+}
+
+.navigation-links {
+  cursor: pointer;
+  color: #444;
+}
+
+.navigation-links:hover,
+.navigation-links.active {
+  color: #10b981;
+}
+
+.about-section,
+.newsletter-section {
+  display: flex;
+  max-width: 60%;
+  margin: 4.8rem auto;
+  font-size: 1.4rem;
+  color: #555;
 }
