@@ -1,0 +1,18 @@
+.main {
+  width: 100%;
+  padding-block: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+  background-color: #f8fafc;
+}
+
+.form {
+  padding: 1.6rem;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  width: 40%;
+}
