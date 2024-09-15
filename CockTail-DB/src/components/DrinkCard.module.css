@@ -1,0 +1,16 @@
+.item {
+  width: 20rem;
+  background-color: #fff;
+}
+
+.item figure {
+  height: 15rem;
+  background-size: contain;
+}
+
+.img {
+  width: 100%;
+  display: block;
+  object-fit: conver;
+  height: 15rem;
+}

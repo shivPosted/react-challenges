@@ -10,46 +10,9 @@ body {
   font-family: sans-serif;
 }
 
-header {
-  display: flex;
-  max-width: 80%;
-  margin: 0 auto;
-  padding-block: 1.6rem;
-  justify-content: space-between;
-  align-items: center;
-}
-
 h1 {
   font-size: 3.2rem;
   color: #10b981;
-}
-
-main {
-  width: 100%;
-  padding-block: 3.2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 3.2rem;
-  background-color: #f8fafc;
-}
-
-ul {
-  max-width: 80%;
-  margin: 0 auto;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.4rem;
-  font-size: 1.2rem;
-}
-form {
-  padding: 1.6rem;
-  background-color: #fff;
-  display: flex;
-  justify-content: center;
-  width: 40%;
 }
 
 input {
@@ -69,23 +32,6 @@ button {
 
 button:hover {
   background-color: #10b999;
-}
-
-.cocktail-list > li {
-  width: 20rem;
-  background-color: #fff;
-}
-
-li > figure {
-  height: 15rem;
-  background-size: contain;
-}
-
-figure > .card-img {
-  width: 100%;
-  display: block;
-  object-fit: conver;
-  height: 15rem;
 }
 
 .drink-desc {
