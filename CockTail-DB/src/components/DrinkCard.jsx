@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./DrinkCard.module.css";
 
-export default function DrinkCard({ data, handleShowDetails }) {
+export default function DrinkCard({ data }) {
   const {
     idDrink: id,
     strDrink: name,
@@ -20,10 +20,8 @@ export default function DrinkCard({ data, handleShowDetails }) {
         <h2>{name}</h2>
         <p className="glass">{glass}</p>
         <div className="alcohalic">{alcohalic}</div>
-        <Link to="/details">
-          <button className="details-btn" onClick={() => handleShowDetails(id)}>
-            Details
-          </button>
+        <Link to={`${id}`}>
+          <button className="details-btn">Details</button>
         </Link>
       </div>
     </li>

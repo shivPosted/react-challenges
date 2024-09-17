@@ -1,8 +1,11 @@
+import { Outlet, useParams } from "react-router-dom";
 import PageNav from "../components/PageNav";
 import styles from "./HomePage.module.css";
 import { useState, useEffect, useRef } from "react";
 
 export default function HomePage({ setData, children, setLoading }) {
+  const { id } = useParams();
+  console.log(id);
   const [query, setQuery] = useState("");
 
   const input = useRef(null);
@@ -39,18 +42,22 @@ export default function HomePage({ setData, children, setLoading }) {
   return (
     <>
       <PageNav />
-      <main className={styles.main}>
-        <form action="none" onSubmit={handleSubmit} className={styles.form}>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            ref={input}
-          />
-          <button>Search</button>
-        </form>
-        {children}
-      </main>
+      {id ? (
+        <Outlet />
+      ) : (
+        <main className={styles.main}>
+          <form action="none" onSubmit={handleSubmit} className={styles.form}>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              ref={input}
+            />
+            <button>Search</button>
+          </form>
+          {children}
+        </main>
+      )}
     </>
   );
 }

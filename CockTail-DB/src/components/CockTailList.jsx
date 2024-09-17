@@ -1,6 +1,6 @@
 import DrinkCard from "./DrinkCard";
 import styles from "./CockTailList.module.css";
-export default function CockTailList({ data, handleShowDetails }) {
+export default function CockTailList({ data }) {
   const drinksData = data ? data : "Drink Not Found";
 
   return !data ? (
@@ -8,11 +8,7 @@ export default function CockTailList({ data, handleShowDetails }) {
   ) : (
     <ul className={styles.list}>
       {drinksData.map((item) => (
-        <DrinkCard
-          key={item.idDrink}
-          data={item}
-          handleShowDetails={handleShowDetails}
-        />
+        <DrinkCard key={item.idDrink} data={item} />
       ))}
     </ul>
   );
