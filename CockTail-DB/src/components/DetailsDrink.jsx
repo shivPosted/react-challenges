@@ -1,7 +1,7 @@
-import { Link, useParams } from "react-router-dom";
-import PageNav from "./PageNav.jsx";
+import { Link, useNavigate, useParams } from "react-router-dom";
 export default function DetailsDrink({ data }) {
   const { id } = useParams();
+  const navigate = useNavigate();
   console.log(id);
   const details = data.find((obj) => obj.idDrink === id);
 
@@ -39,9 +39,9 @@ export default function DetailsDrink({ data }) {
         <div className="drink-details-categ">Instructions:</div>
         <p>{instructions}</p>
       </div>
-      <Link to="/">
-        <button id="back-btn">&larr;</button>
-      </Link>
+      <button id="back-btn" onClick={() => navigate(-1)}>
+        &larr;
+      </button>
     </div>
   );
 }
