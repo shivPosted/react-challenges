@@ -9,10 +9,11 @@ export default function Github() {
         if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
         const data = await res.json();
 
-        const { name, followers, avatar_url: img } = data;
-        setData({ name, followers, img });
+        const { name, followers, avatar_url: img, repos_url: repos } = data;
+        setData({ name, followers, img, repos });
       } catch (err) {
         alert(err.message);
+        console.log(err);
       }
     }
     fetchData();
@@ -21,13 +22,16 @@ export default function Github() {
   return (
     <div className="text-gray-600 text-center  bg-orange-200 py-10 flex-col ">
       <h3>
-        {data?.name}: Folloers:{data?.followers}
+        {data?.name}: Followers:{data?.followers}
       </h3>
       <img
         src={data?.img}
         alt={`${data?.name}-image`}
         className="size-80 ml-10"
       />
+      <h2>
+        <a href={data.repos}>Github Repo</a>
+      </h2>
     </div>
   );
 }
